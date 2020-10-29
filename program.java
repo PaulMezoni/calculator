@@ -12,45 +12,23 @@ import java.util.stream.IntStream;
 public class program {
 	
 
-	static String romeNumArr[]  =  { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX","X","+","-","*","/"};
-	static String operArr[]  =  {"+","-","*","/"};
+	static String romeNumArr[]  =  { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX","X"};
 
 	    public static void main(String[] args) {
 	    	//int number1 = 0;
 	    	//int number2 = 0;
+	    	int counter = 0;
 	    	Scanner scanner = new Scanner(System.in);
 	    	System.out.print(">> ");
 	    	String inputString = getInput();
 	    	
+	    	int operator = Operator(inputString);
+	    	String Num1 = num1(inputString);
+	    	String Num2 = num2(inputString);
 	    	
-	    	System.out.println(Operator(inputString));
-
-	    	//преобразую в char
-	    	char operator = Operator(inputString).charAt(0);
-	    	//преобразовываем строку в массив
-	    	char[] chArray = inputString.toCharArray();
-	    	//перебираем все элементы массива
-	    	for(int i = 0; i<chArray.length; i++){
-	    		//находим оператор 
-	    	if(chArray[i] == (operator)){
-	    		//заменяем на пробел
-	    		chArray[i] = ' ';
-
-	    		}
-	    	}
-	    	//Достаем строки
-	    	String myStr = String.valueOf(chArray);
-	    	String[] word = myStr.split(" ");
-	    	//String obj1 = word[0];
-	    	//String obj2 = word[1];
-	    	
-         
-              int number1 = romanToNumber(word[0]);
-             int  number2 = romanToNumber(word[1]);
-     
-            
-            System.out.println(number1);
-            System.out.println(number2);
+            System.out.println(operator);
+            System.out.println(Num1);
+            System.out.println(Num2);
             
             
             
@@ -67,47 +45,73 @@ public class program {
 	        }
 	    }
 	    
-	    
-	    
-	    //Первое вхождение
-	    public static String Num(String inputString) {
-	        String pattern = ("\\d+");
-	        Pattern ptrn = Pattern.compile(pattern);
-	        Matcher matcher = ptrn.matcher(inputString);
-	        String result = "";
-	        if(matcher.find()){
-	        	result = matcher.group(0);
-	        }
-	    return result;	
+	    //оператор
+	    public static int Operator(String inputString) {
+
+	    	int index1 = inputString.indexOf('+');
+	    	int index2 = inputString.indexOf('-');
+	    	int index3 = inputString.indexOf('*');
+	    	int index4 = inputString.indexOf('/');
+	    	
+	    	if(index1 > 0) {
+	    		return 1;
+	    	}
+	    	else if(index2 > 0) {
+	    		return 2;
+	    	}
+	    	else if(index3 > 0) {
+	    		return 3;
+	    	}
+	    	else if(index4 > 0) {
+	    		return 4;
+	    	}else {
+	    		return -1;
+	    	}
+	    	
+	    	
 	    }
-	        
-	    //Оператор
-	    public static String Operator(String inputString) {
-	        String pattern = "(\\D)";
-	        Pattern ptrn = Pattern.compile(pattern);
-	        Matcher matcher = ptrn.matcher(inputString);
-	        String result = "";
-	        if(matcher.find()){
-	        	result = matcher.group(0);
-	        }
-	    return result;	
+	    
+	    
+	    //индекс оператора в строке
+	    public static int OperatorIndex(String inputString) {
+
+	    	int index1 = inputString.indexOf('+');
+	    	int index2 = inputString.indexOf('-');
+	    	int index3 = inputString.indexOf('*');
+	    	int index4 = inputString.indexOf('/');
+	    	
+	     	if(index1 > 0) {
+	    		return index1;
+	    	}
+	    	else if(index2 > 0) {
+	    		return index2;
+	    	}
+	    	else if(index3 > 0) {
+	    		return index3;
+	    	}
+	    	else if(index4 > 0) {
+	    		return index4;
+	    	}else {
+	    		return -1;
+	    	}
+	    	
 	    }
-	    
-	    //Второе вхождение
-	    public static int Num1(String inputString) {
-	        int result = 0;
-	        int start = 0;
-	        Pattern pattern = Pattern.compile("\\d+");
-	        Matcher matcher = pattern.matcher(inputString);
-	        
-	        while (matcher.find(start)) {
-	           String value = inputString.substring(matcher.start(), matcher.end());
-	           result = Integer.parseInt(value);
-	           start = matcher.end();
-	        }
-		return result;	
-		}
-	    
+	    //Строка 1
+	    public static String num1(String inputString) {
+	    	
+	    	int index = OperatorIndex(inputString);
+	    	String result = inputString.substring(0, index);
+	    	return result;
+	    }
+	    //Строка 2
+	    public static String num2(String inputString) {
+	    	
+	    	int InputStringLength = inputString.length();
+	    	int index = OperatorIndex(inputString);
+	    	String result = inputString.substring(index+1, inputString.length());
+	    	return result;
+	    }
+	     
 	    private static int romanToNumber(String roman) {
 	        if (roman.equals("I")) {
 	            return 1;
@@ -133,6 +137,7 @@ public class program {
 	            return -1;
 	        }
 	    }
+
 	    
 	    
 		  public static String RomanNumerals(int Int) {
@@ -173,5 +178,12 @@ public class program {
 		  
 		  
 	    }
+
+	   
+	   
+
+	    
+	    
+	 
 
 	   
