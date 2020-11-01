@@ -54,9 +54,9 @@ public class program {
             	System.out.print(answer);
             }
         
-	       	if(Integer.parseInt(string1) > 10 & Integer.parseInt(string2) > 10){
+	    if(Integer.parseInt(string1) > 10 & Integer.parseInt(string2) > 10){
 	       		System.out.println("Число не больше 10 >> ");
-	       	}
+	    }
 
 	       	
 	        
