@@ -11,65 +11,87 @@ import java.util.stream.IntStream;
 public class program {
 	
 
-	static String rome[]  =  { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX","X"};
-	static String numbers[]  =  { "1", "2", "3", "4", "5", "6", "7", "8", "9","10"};
-
+	static String romeNum[]  =  { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX","X"};
+	static String arabNum[]  =  { "1", "2", "3", "4", "5", "6", "7", "8", "9","10"};
+	static String simbol[] = {"+","-","*","/"};
 	    public static void main(String[] args) {
-	
+	    	int z = 1;
 	    	Scanner scanner = new Scanner(System.in);
-	    	String inputString = getInput();
 	    	
-	    	int Num1 = 0;
-	    	int Num2 = 0;
-	    	int answer = 0;
-	    	String string1 = "0";
-	    	String string2 = "0";
-	        int operator = Operator(inputString);
-	        
-	        //проверяем отсутствие буквенных символов 
-	        if(noString(inputString)) {
-	        	System.out.println("Введите римские или арабские цыфры >>");
-	        }
-	        
-	        //проверка оператора делим строку
-	       	if(operator > 0) {
-		       	string1 = num1(inputString);
-		       	string2 = num2(inputString);
-	       	}else {
-	       		System.out.println("Введите оператор >>");
-	       	}
-	       	//проверка 0 при вводе
-	       	if(string1 == "0" & string2 == "0"){
-	       		System.out.println("Число не меньше 1 >> ");
-	       	}
-	       	 	
-            //проверка ввода римских чисел
-            if(Arrays.asList(rome).contains(string1) & Arrays.asList(rome).contains(string2)) {
-            	answer = calculate(romanToNumber(string1), romanToNumber(string2), operator);
-            	System.out.print(RomanNumerals(answer));
-            }
-	       	//проверка ввода арабских чисел
-            if(Arrays.asList(numbers).contains(string1) & Arrays.asList(numbers).contains(string2)){
-            	answer = calculate(Integer.parseInt(string1), Integer.parseInt(string2), operator);
-            	System.out.print(answer);
-            }
-        
-	    if(Integer.parseInt(string1) > 10 & Integer.parseInt(string2) > 10){
-	       		System.out.println("Число не больше 10 >> ");
-	    }
-
+	while(z > 0){
+		
+			boolean Flag = false;
+			System.out.print(" ");
+    		String inputString = scanner.next();
+    		
+    		String string1 = "0";
+    		String string2 = "0";
+    		
+    		int Num1 = 0;
+    		int Num2 = 0;
+    		
+    		if(noString(inputString)) {
+   	        	System.out.println("Введите римские или арабские цыфры >>");
+   	        	break;
+   	        }
+    		
+    		if(OperatorIndex(inputString) < 0) {
+    			System.out.println("Вы не ввели оператор >> ");
+    			break;
+    		}else {
+    			string1 = num1(inputString);
+    		}
+    		
+    		if(string1.length() < 1) {
+    			System.out.println("Вы не ввели первый символ");
+    			break;
+    		}else {
+    			string2 = num2(inputString);
+    		}
+    		
+    		if(string2.length() < 1) {
+    			System.out.println("Вы не ввели второй символ");
+    			break;
+    		}
+    		
+    		if(Arrays.asList(romeNum).contains(string1) & Arrays.asList(romeNum).contains(string2)){
+    			Flag = false;
+    		}
+    		
+    		if(Arrays.asList(arabNum).contains(string1) & Arrays.asList(arabNum).contains(string2)){
+    			Flag = true;
+    		}
+    		
+    		if(Flag == false) {
+    			int answer = calculate(romanToNumber(string1), romanToNumber(string2), Operator(inputString));
+    			System.out.println(RomanNumerals(answer));
+    		}
+    
+    		if(Flag == true) {
+    			int answer = calculate(Integer.parseInt(string1), Integer.parseInt(string2), Operator(inputString));
+    			System.out.println(answer);
+    		}
+    		
+    
+   
+	    	
+	}
 	       	
 	        
 	        
-}    	
-	    //Проверка ввода
+} 
+	    
+	    
+	    
+	    //Проверка ввода 
 	    public static boolean noString(String inputString) {
 	        return inputString.matches("[a-zA-Z]+");
 	    }
+
 	
 	    //Ввод
 	    public static String getInput() {
-	    	System.out.print(": ");
+	    	
 	    	try (Scanner scanner = new Scanner(System.in)) {
 	    		return scanner.next();
 	        }
@@ -141,12 +163,16 @@ public class program {
 	    }
 	    //Строка 2 по оператору
 	    public static String num2(String inputString) {
-	    	String result = "?";
-	    	//int InputStringLength = inputString.length();
+	    	String result = "0";
 	    	int index = OperatorIndex(inputString);
-	    	result = inputString.substring(index+1, inputString.length());
-	    	return result;
+	    	if(OperatorIndex(inputString) != -1) {
+	    		result = inputString.substring(index+1, inputString.length());
+	    		return result;
+	    	}else {
+	    		return "0";
+	    	}
 	    }
+	    
 	    //перевод в арабские )
 	    private static int romanToNumber(String roman) {
 	        if (roman.equals("I")) {
