@@ -1,3 +1,4 @@
+//package calcapp;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ public class program {
     		int Num2 = 0;
     		
     		if(noString(inputString)) {
-   	        	System.out.println("Введите римские или арабские цыфры >>");
+   	        	System.out.println("Введите римские или арабские цыфры от 1 до 10 >>");
    	        	break;
    	        }
     		
@@ -43,14 +44,24 @@ public class program {
     		}
     		
     		if(string1.length() < 1) {
-    			System.out.println("Вы не ввели первый символ");
+    			System.out.println("Вы не ввели первый символ >>");
     			break;
     		}else {
     			string2 = num2(inputString);
     		}
     		
     		if(string2.length() < 1) {
-    			System.out.println("Вы не ввели второй символ");
+    			System.out.println("Вы не ввели второй символ >>");
+    			break;
+    		}
+    		
+    		if(Integer.parseInt(string1) > 10 || Integer.parseInt(string1) < 1) {
+    			System.out.println("первое число ошибка только от 1 до 10 >>");
+    			break;
+    		}
+    		
+    		if(Integer.parseInt(string2) > 10 || Integer.parseInt(string2) < 1) {
+    			System.out.println("второе число ошибка только от 1 до 10 >>");
     			break;
     		}
     		
@@ -71,6 +82,8 @@ public class program {
     			int answer = calculate(Integer.parseInt(string1), Integer.parseInt(string2), Operator(inputString));
     			System.out.println(answer);
     		}
+    		
+    		
     		
     
    
