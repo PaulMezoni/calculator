@@ -1,4 +1,3 @@
-//package calcapp;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.Arrays;
@@ -14,7 +13,6 @@ public class program {
 
 	static String romeNum[]  =  { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX","X"};
 	static String arabNum[]  =  { "1", "2", "3", "4", "5", "6", "7", "8", "9","10"};
-	//static String simbol[] = {"+","-","*","/"};
 	
 	    public static void main(String[] args) {
 	    	
@@ -59,6 +57,7 @@ public class program {
     			
     		}else if(Arrays.asList(romeNum).contains(string1) != Arrays.asList(romeNum).contains(string2)){
     			System.out.println("Такой формат ввода исключен: "+string1+" и "+string2+", только римские или арабские >>");
+    			break;
     		}
     		
     		if(Arrays.asList(arabNum).contains(string1) & Arrays.asList(arabNum).contains(string2)){
@@ -69,6 +68,7 @@ public class program {
     		
     		if(Num1 < 1 || Num1 > 10) {
     			System.out.println("Только целые числа от 1 до 10 >>");
+    			break;
     		}
     		
     		int answer = calculate(Num1, Num2, Operator(inputString));
@@ -76,10 +76,16 @@ public class program {
     		if(Flag == true) {
     			System.out.println(answer);
     		}
-    		if(Flag == false) {
+    		
+     		if(Flag == false){
     			System.out.println(RomanNumerals(answer));
     		}
     
+     		if(Flag == false & answer <= 0){
+    			System.out.println("не может быть нолем или отридцательным");
+    			break;
+    		}
+     		
    
 	    	
 	}	        
