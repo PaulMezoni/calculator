@@ -1,11 +1,11 @@
-//package calcapp;
+package calcapp;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 //import java.io.*;
 
@@ -14,8 +14,10 @@ public class program {
 
 	static String romeNum[]  =  { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX","X"};
 	static String arabNum[]  =  { "1", "2", "3", "4", "5", "6", "7", "8", "9","10"};
-	static String simbol[] = {"+","-","*","/"};
+	//static String simbol[] = {"+","-","*","/"};
+	
 	    public static void main(String[] args) {
+	    	
 	    	int z = 1;
 	    	Scanner scanner = new Scanner(System.in);
 	    	
@@ -30,11 +32,6 @@ public class program {
     		
     		int Num1 = 0;
     		int Num2 = 0;
-    		
-    		if(noString(inputString)) {
-   	        	System.out.println("Введите римские или арабские цыфры от 1 до 10 >>");
-   	        	break;
-   	        }
     		
     		if(OperatorIndex(inputString) < 0) {
     			System.out.println("Вы не ввели оператор >> ");
@@ -54,54 +51,41 @@ public class program {
     			System.out.println("Вы не ввели второй символ >>");
     			break;
     		}
-    		
-    		if(Integer.parseInt(string1) > 10 || Integer.parseInt(string1) < 1) {
-    			System.out.println("первое число ошибка только от 1 до 10 >>");
-    			break;
-    		}
-    		
-    		if(Integer.parseInt(string2) > 10 || Integer.parseInt(string2) < 1) {
-    			System.out.println("второе число ошибка только от 1 до 10 >>");
-    			break;
-    		}
-    		
+    			
     		if(Arrays.asList(romeNum).contains(string1) & Arrays.asList(romeNum).contains(string2)){
     			Flag = false;
+    			Num1 = romanToNumber(string1);
+    			Num2 = romanToNumber(string2);
+    			
+    		}else if(Arrays.asList(romeNum).contains(string1) != Arrays.asList(romeNum).contains(string2)){
+    			System.out.println("Такой формат ввода исключен: "+string1+" и "+string2+", только римские или арабские >>");
     		}
     		
     		if(Arrays.asList(arabNum).contains(string1) & Arrays.asList(arabNum).contains(string2)){
     			Flag = true;
+    			Num1 = Integer.parseInt(string1);
+    			Num2 = Integer.parseInt(string2);
     		}
     		
+    		if(Num1 < 1 || Num1 > 10) {
+    			System.out.println("Только целые числа от 1 до 10 >>");
+    		}
+    		
+    		int answer = calculate(Num1, Num2, Operator(inputString));
+    		
+    		if(Flag == true) {
+    			System.out.println(answer);
+    		}
     		if(Flag == false) {
-    			int answer = calculate(romanToNumber(string1), romanToNumber(string2), Operator(inputString));
     			System.out.println(RomanNumerals(answer));
     		}
     
-    		if(Flag == true) {
-    			int answer = calculate(Integer.parseInt(string1), Integer.parseInt(string2), Operator(inputString));
-    			System.out.println(answer);
-    		}
-    		
-    		
-    		
-    
    
 	    	
-	}
-	       	
-	        
-	        
+	}	        
 } 
 	    
-	    
-	    
-	    //Проверка ввода 
-	    public static boolean noString(String inputString) {
-	        return inputString.matches("[a-zA-Z]+");
-	    }
-
-	
+	 	
 	    //Ввод
 	    public static String getInput() {
 	    	
